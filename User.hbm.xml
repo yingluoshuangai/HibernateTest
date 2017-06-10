@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--表明解析本XML文件的DTD文档位置，DTD是Document Type Definition 的缩写,即文档类型的定义,
+XML解析器使用DTD文档来检查XML文件的合法性。同时声明了dtd文档位置，在Myeclipse中编写时便会出现语法提示。
+可以在"hibernate3.jar/org.hibernate/hibernate-mapping-3.0.dtd"目录中找到dtd文档。
+将hibernate-mapping-3.0.dtd文件打开，将里面的该段复制过来。-->
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<!-- 规范：与数据库中表相关的，一律使用大写 -->
+	
+	<class name="po.User" table="USERS" dynamic-update="true"><!-- ① -->
+	
+		<!-- 声明主键 -->
+		<id name="id" type="java.lang.Integer" column="ID"><!-- ② -->
+		<!-- 声明主键的增长方式-->
+		<generator class="native"></generator><!-- ③ -->
+		</id>
+		
+		<!-- 声明其它列 -->
+		<property name="name" type="java.lang.String" column="NAME"></property>
+		<property name="password" type="java.lang.String" column="PASSWORD"></property>
+		<property name="telephone" type="java.lang.String" column="TELEPHONE"></property>
+		<property name="username" type="java.lang.String" column="USERNAME"></property>
+		<property name="isAdmin" type="java.lang.String" column="ISADMIN"></property>
+	</class>
+</hibernate-mapping>
+<!-- 各个字段详解：
+①：
+	name:实体类名。
+	table：表名，如果表名含特殊字符使用"`"声明如"`USERS`"
+	dynamic-update:是否开启动态更新，默认为flase
+②:
+	name:实体类中的属性，使用getId(),setId()方法来访问实体类的id属性。
+	type:实体类中的属性的类型，可以使用java类型如"java.lang.Integer"，也可使用hibernate类型如“int”
+③:	
+	声明主键的增长方式
+	assigned:手动指派主键。
+	sequence:通过查询序列，获得值。用于Oracle数据库
+	increment:查询数据库，获得该列的最大值然后加一
+	identity:自增长。用于mysql数据库
+	uuid:创建一个随机数作为值
+	native:根据底层数据库自行判断采用identity、hilo、sequence其中一种作为主键生成方式。
+ -->
