@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--标准的XML文件的起始行，version='1.0'表明XML的版本，encoding='UTF-8'表明XML文件的编码方式-->
+<!--表明解析本XML文件的DTD文档位置，DTD是Document Type Definition 的缩写,即文档类型的定义,
+XML解析器使用DTD文档来检查XML文件的合法性。同时声明了dtd文档位置，在Myeclipse中编写时便会出现语法提示。
+可以在"hibernate3.jar/org.hibernate/hibernate-configuration-3.0.dtd"目录中找到dtd文档。
+将hibernate-configuration-3.0.dtd文件打开，将里面的该段复制过来。-->
+<!DOCTYPE hibernate-configuration PUBLIC
+	"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+	
+<!-- 声明Hibernate配置文件的开始 -->
+<hibernate-configuration>
+<!-- 以下的配置是针对session-factory配置的，
+SessionFactory是Hibernate中的一个类，这个类主要负责保存HIbernate的配置信息，以及对Session的操作 -->
+	<session-factory>
+	
+	<!-- 数据库连接 -->
+	<!-- 配置数据库的驱动程序，MySQL的驱动程序位置为“mysql-connector-java-5.1.0-bin.jar/com.mysql.jdbc/Driver.class”
+	MySQL的值为“com.mysql.jdbc.Driver" -->
+	<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+	<!-- 设置数据库的连接URL -->
+	<property name="hibernate.connection.url">jdbc:mysql://localhost/rental</property>
+	<!-- 连接数据库的用户名 -->
+	<property name="hibernate.connection.username">root</property>
+	<!-- 连接数据库的密码 -->
+	<property name="hibernate.connection.password">zzzzllll</property>
+	
+	<!-- 辅助参数 -->
+	<!-- 方言 ,从“hibernate3.jar/org.hibernate/dialect”中可以看到该版本的hibernate支持哪些数据库方言，
+	将对应的class文件名写于此。-->
+	<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+	<!-- 是否在后台显示Hibernate用到的SQL语句，开发时设置为true，便于查错，
+	程序运行时可以在Eclipse的控制台显示Hibernate的执行Sql语句。项目部署后可以设置为false，提高运行效率 -->
+	<property name="hibernate.show_sql">true</property>
+	<!-- 将上一条生成的sql语句格式化后输出， -->
+	<property name="hibernate.format_sql">true</property>
+	<!-- 声明生成的session都是与线程绑定的 -->
+	<property name="current_session_context_class">thread</property>
+	
+	<!-- 映射文件 -->
+	<mapping resource="po/User.hbm.xml"/>
+	
+	</session-factory>
+</hibernate-configuration>
