@@ -1,5 +1,10 @@
 package dao;
 
+import java.util.List;
+import java.util.Map;
+
+import org.hibernate.Query;
+
 import common.HibernateSessionFactory;
 
 import po.User;
@@ -40,6 +45,28 @@ public class UserDao {
 		return (User)HibernateSessionFactory.getSession().get(User.class, id);
 	}
 	
+	/*
+	 * 动态查询User表*/
+	public List<User> findUsers(String hql,Map<String,Object> user){
+		//Query对象可以使用方法链，因为Query对象的方法返回的都是一个Query对象
+		/*Query q = HibernateSessionFactory.getSession().createQuery("from User");
+		return q.list();*/
+		return HibernateSessionFactory.getSession()
+				.createQuery(hql)
+				.setProperties(user)
+				.list();
+	}
+	
+	/*
+	 * 分页查询User表*/
+	public List<User> findUsers(int page,int size){
+		return HibernateSessionFactory.getSession()
+				.createQuery("from User")
+				.setFirstResult((page -1)*size)
+				.setMaxResults(size)
+				.list();
+	}
 	
 	
 }
+
